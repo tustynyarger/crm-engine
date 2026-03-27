@@ -1,4 +1,4 @@
-import type { PipelineKind } from "@/lib/types";
+type PipelineKind = "buyer" | "seller";
 
 export const BUYER_STAGES = [
   "Lead",

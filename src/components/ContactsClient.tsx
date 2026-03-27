@@ -842,7 +842,12 @@ export default function ContactsClient() {
                             className={`${actionButtonClass} ${copiedContactId === c.id ? "border-emerald-300 bg-emerald-50 text-emerald-700" : ""}`}
                             onClick={async (e) => {
                               e.stopPropagation();
-                              await copyEmail(c.id, c.email);
+                              const email = c.email;
+                              if (!email) {
+                                return;
+                              }
+
+                              await copyEmail(c.id, email);
                               openLogModal(c);
                             }}
                             type="button"
