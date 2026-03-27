@@ -29,6 +29,11 @@ export function SidebarNav({ className = "", onNavigate }: SidebarNavProps) {
       return;
     }
 
+    const confirmed = window.confirm("Are you sure you want to log out?");
+    if (!confirmed) {
+      return;
+    }
+
     setIsLoggingOut(true);
     await supabase.auth.signOut();
     onNavigate?.();
