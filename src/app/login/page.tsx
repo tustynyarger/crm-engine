@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 
 const inputClass =
-  "mt-1 h-10 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-200";
+  "mt-1 h-10 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 outline-none transition focus:border-[#eb0003] focus:ring-2 focus:ring-[#eb0003]/20";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -77,7 +77,7 @@ export default function LoginPage() {
           {status === "error" ? <p className="text-sm text-red-600">{errorMessage || "Unable to sign in."}</p> : null}
 
           <button
-            className="rounded-lg bg-slate-900 px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-70"
+            className="rounded-lg bg-[#eb0003] px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-[#c40003] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={status === "loading"}
             type="submit"
           >

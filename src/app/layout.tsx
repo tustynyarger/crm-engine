@@ -3,9 +3,14 @@ import { AppShell } from "@/components/AppShell";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "crm-engine",
+  title: "Tustyn CRM",
   description: "Daily Follow-Up Engine + Deal Tracker",
   manifest: "/manifest.webmanifest",
+  icons: {
+    icon: "/icon-192.png",
+    shortcut: "/icon-192.png",
+    apple: "/apple-touch-icon.png",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
@@ -17,7 +22,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0f172a",
+  themeColor: "#eb0003",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,

@@ -502,13 +502,13 @@ export default function ContactsClient() {
 
   const baseFilterButtonClass =
     "rounded-full px-3 py-1.5 text-sm text-slate-600 hover:-translate-y-px hover:border-slate-300 hover:bg-white";
-  const activeFilterButtonClass = "rounded-full bg-slate-900 px-3 py-1.5 text-sm text-white shadow-sm";
+  const activeFilterButtonClass = "rounded-full bg-[#eb0003] px-3 py-1.5 text-sm text-white shadow-sm";
   const actionButtonClass =
     "w-16 rounded-md border border-slate-300 bg-white px-2 py-1.5 text-center text-[11px] font-medium text-slate-700 shadow-sm hover:-translate-y-px hover:border-slate-400 hover:bg-slate-50 active:translate-y-0";
   const inlineInputClass =
-    "w-full rounded-md border border-slate-200 bg-white px-2 py-1.5 text-sm text-slate-700 outline-none focus:border-slate-300 focus:ring-2 focus:ring-slate-200";
+    "w-full rounded-md border border-slate-200 bg-white px-2 py-1.5 text-sm text-slate-700 outline-none focus:border-[#eb0003] focus:ring-2 focus:ring-[#eb0003]/20";
   const filterSelectClass =
-    "min-w-40 rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-200";
+    "min-w-40 rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm outline-none transition focus:border-[#eb0003] focus:ring-2 focus:ring-[#eb0003]/20";
 
   function renderEditableCell(contact: Contact, field: EditableField) {
     const key = getCellKey(contact.id, field);
@@ -649,7 +649,7 @@ export default function ContactsClient() {
 
       <div className="border-b border-slate-200 px-4 py-3">
         <input
-          className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm shadow-sm outline-none focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
+          className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm shadow-sm outline-none focus:border-[#eb0003] focus:ring-2 focus:ring-[#eb0003]/20"
           onChange={(event) => setSearch(event.target.value)}
           placeholder="Search name, phone, or email..."
           type="search"
@@ -805,7 +805,7 @@ export default function ContactsClient() {
                       <div className="flex items-center gap-2">
                         {c.phone ? (
                           <button
-                            className={`${actionButtonClass} ${flashedAction?.contactId === c.id && flashedAction.action === "call" ? "border-slate-900 bg-slate-900 text-white" : ""}`}
+                            className={`${actionButtonClass} ${flashedAction?.contactId === c.id && flashedAction.action === "call" ? "border-[#eb0003] bg-[#eb0003] text-white" : ""}`}
                             onClick={(e) => {
                               e.stopPropagation();
                               window.open(`tel:${c.phone}`);
@@ -822,7 +822,7 @@ export default function ContactsClient() {
 
                         {c.phone ? (
                           <button
-                            className={`${actionButtonClass} ${flashedAction?.contactId === c.id && flashedAction.action === "text" ? "border-slate-900 bg-slate-900 text-white" : ""}`}
+                            className={`${actionButtonClass} ${flashedAction?.contactId === c.id && flashedAction.action === "text" ? "border-[#eb0003] bg-[#eb0003] text-white" : ""}`}
                             onClick={(e) => {
                               e.stopPropagation();
                               window.open(`sms:${c.phone}`);
@@ -896,7 +896,7 @@ export default function ContactsClient() {
                         No
                       </button>
                       <button
-                        className="rounded-lg bg-slate-900 px-3 py-2 text-sm text-white shadow-sm hover:bg-slate-800"
+                        className="rounded-lg bg-[#eb0003] px-3 py-2 text-sm text-white shadow-sm hover:bg-[#c40003]"
                         onClick={() => setModalState({ ...modalState, step: "schedule" })}
                         type="button"
                       >
@@ -974,7 +974,7 @@ export default function ContactsClient() {
                         Cancel
                       </button>
                       <button
-                        className="rounded-lg bg-slate-900 px-3 py-2 text-sm text-white shadow-sm hover:bg-slate-800"
+                        className="rounded-lg bg-[#eb0003] px-3 py-2 text-sm text-white shadow-sm hover:bg-[#c40003]"
                         disabled={modalState.isSaving}
                         onClick={() => void handleCustomDateSave()}
                         type="button"

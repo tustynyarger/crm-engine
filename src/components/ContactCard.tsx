@@ -27,7 +27,7 @@ export function ContactCard({ contact, onDone, isHighlighted = false }: ContactC
   return (
     <article
       className={`rounded-2xl border bg-white p-4 shadow-sm sm:p-5 ${
-        isHighlighted ? "border-slate-900 bg-slate-50 ring-1 ring-slate-900/10" : "border-slate-200"
+        isHighlighted ? "border-[#eb0003] bg-red-50/50 ring-1 ring-[#eb0003]/15" : "border-slate-200"
       }`}
       id={`contact-card-${contact.id}`}
       tabIndex={-1}
@@ -85,7 +85,7 @@ export function ContactCard({ contact, onDone, isHighlighted = false }: ContactC
         )}
 
         <button
-          className="rounded-lg bg-slate-900 px-2 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-slate-800"
+          className="rounded-lg bg-[#eb0003] px-2 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-[#c40003]"
           onClick={() => onDone(contact)}
           type="button"
         >

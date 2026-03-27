@@ -8,7 +8,7 @@ import { getDefaultFollowUp } from "@/lib/utils";
 import type { Contact, ContactKind, LocationKind, TemperatureKind, TierKind } from "@/lib/types";
 
 const inputClass =
-  "mt-1 h-10 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-200";
+  "mt-1 h-10 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 outline-none transition focus:border-[#eb0003] focus:ring-2 focus:ring-[#eb0003]/20";
 const sectionLabelClass = "block text-sm text-slate-700";
 const saveButtonBaseClass =
   "rounded-lg px-3 py-2 text-sm font-medium text-white shadow-sm transition disabled:cursor-not-allowed disabled:opacity-70";
@@ -266,7 +266,7 @@ export default function AddContactPage() {
                 ? `${saveButtonBaseClass} bg-emerald-600`
                 : saveStatus === "error"
                   ? `${saveButtonBaseClass} bg-red-600`
-                  : `${saveButtonBaseClass} bg-slate-900 hover:bg-slate-800`
+                  : `${saveButtonBaseClass} bg-[#eb0003] hover:bg-[#c40003]`
             }
             disabled={saveStatus === "saving"}
             type="submit"

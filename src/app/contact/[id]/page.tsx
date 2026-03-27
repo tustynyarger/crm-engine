@@ -15,7 +15,7 @@ import type {
 } from "@/lib/types";
 
 const inputClass =
-  "mt-1 h-10 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-200";
+  "mt-1 h-10 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 outline-none transition focus:border-[#eb0003] focus:ring-2 focus:ring-[#eb0003]/20";
 const labelClass = "block text-sm text-slate-700";
 const surfaceClass = "rounded-2xl border border-slate-200 bg-white shadow-sm";
 
@@ -540,7 +540,7 @@ export default function ContactDetailPage() {
                 ? "rounded-lg bg-emerald-600 px-3 py-2 text-sm font-medium text-white shadow-sm"
                 : saveStatus === "error"
                   ? "rounded-lg bg-red-600 px-3 py-2 text-sm font-medium text-white shadow-sm"
-                  : "rounded-lg bg-slate-900 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-slate-800"
+                  : "rounded-lg bg-[#eb0003] px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#c40003]"
             }
             disabled={saveStatus === "saving"}
             type="submit"
@@ -567,7 +567,7 @@ export default function ContactDetailPage() {
 
         <form className="mt-3 flex flex-col gap-2" onSubmit={handleAddNote}>
           <textarea
-            className="min-h-24 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
+            className="min-h-24 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 outline-none transition focus:border-[#eb0003] focus:ring-2 focus:ring-[#eb0003]/20"
             name="noteText"
             placeholder="Add note"
           />
@@ -619,7 +619,7 @@ export default function ContactDetailPage() {
                 Leave Without Saving
               </button>
               <button
-                className="rounded-lg bg-slate-900 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-lg bg-[#eb0003] px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#c40003] disabled:cursor-not-allowed disabled:opacity-60"
                 disabled={leaveActionStatus === "saving" || saveStatus === "saving"}
                 onClick={() => void handleSaveAndContinue()}
                 type="button"
