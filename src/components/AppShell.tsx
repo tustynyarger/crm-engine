@@ -32,6 +32,10 @@ export function AppShell({
     setIsOpen(false);
   }
 
+  const shouldShowLoading = !authChecked || (isLoginPage && session) || (!isLoginPage && !session);
+  const showSidebarChrome = !isLoginPage;
+  const showPageContent = authChecked && ((isLoginPage && !session) || (!isLoginPage && !!session));
+
   useEffect(() => {
     let isMounted = true;
 
@@ -77,35 +81,43 @@ export function AppShell({
     }
   }, [authChecked, isLoginPage, router, session]);
 
-  if (!authChecked || (isLoginPage && session) || (!isLoginPage && !session)) {
-    return (
-      <div className="flex h-screen items-center justify-center bg-slate-100/80 p-4">
-        <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-600 shadow-sm">
-          Loading...
-        </div>
-      </div>
-    );
-  }
-
-  if (isLoginPage) {
-    return <div className="min-h-screen bg-slate-100/80 p-4 sm:p-5">{children}</div>;
-  }
-
   return (
-    <div className="flex h-screen w-full bg-slate-100/80">
-      <SidebarNav className="hidden w-56 border-r border-slate-200 bg-slate-50/90 p-4 backdrop-blur-sm lg:block" />
+    <div className="flex min-h-dvh w-full bg-slate-100/80">
+      <SidebarNav
+        className={
+          showSidebarChrome
+            ? "hidden w-56 border-r border-slate-200 bg-slate-50/90 p-4 backdrop-blur-sm lg:block"
+            : "hidden"
+        }
+      />
 
       <main className="flex-1 overflow-auto">
-        <div className="flex items-center justify-between border-b border-slate-200 bg-white p-3 lg:hidden">
+        <div
+          className={
+            showSidebarChrome
+              ? "flex items-center justify-between border-b border-slate-200 bg-white p-3 lg:hidden"
+              : "hidden"
+          }
+        >
           <button className="text-xl text-slate-900" onClick={openSidebar} type="button">
             ☰
           </button>
           <span className="font-semibold text-slate-900">CRM</span>
         </div>
-        <div className="min-h-full p-4 sm:p-5">{children}</div>
+        <div className="min-h-full p-4 sm:p-5">
+          {shouldShowLoading ? (
+            <div className="flex min-h-full items-center justify-center">
+              <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-600 shadow-sm">
+                Loading...
+              </div>
+            </div>
+          ) : null}
+
+          {showPageContent ? children : null}
+        </div>
       </main>
 
-      {isOpen ? (
+      {isOpen && showSidebarChrome ? (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div className="absolute inset-0 bg-black/40" onClick={closeSidebar} />
 

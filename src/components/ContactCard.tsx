@@ -26,7 +26,7 @@ export function ContactCard({ contact, onDone, isHighlighted = false }: ContactC
 
   return (
     <article
-      className={`rounded-2xl border bg-white p-4 shadow-sm ${
+      className={`rounded-2xl border bg-white p-4 shadow-sm sm:p-5 ${
         isHighlighted ? "border-slate-900 bg-slate-50 ring-1 ring-slate-900/10" : "border-slate-200"
       }`}
       id={`contact-card-${contact.id}`}
