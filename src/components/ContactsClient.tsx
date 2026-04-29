@@ -502,13 +502,13 @@ export default function ContactsClient() {
 
   const baseFilterButtonClass =
     "rounded-full px-3 py-1.5 text-sm text-slate-600 hover:-translate-y-px hover:border-slate-300 hover:bg-white";
-  const activeFilterButtonClass = "rounded-full bg-[#eb0003] px-3 py-1.5 text-sm text-white shadow-sm";
+  const activeFilterButtonClass = "rounded-full bg-[#007AFF] px-3 py-1.5 text-sm text-white shadow-sm";
   const actionButtonClass =
     "w-16 rounded-md border border-slate-300 bg-white px-2 py-1.5 text-center text-[11px] font-medium text-slate-700 shadow-sm hover:-translate-y-px hover:border-slate-400 hover:bg-slate-50 active:translate-y-0";
   const inlineInputClass =
-    "w-full rounded-md border border-slate-200 bg-white px-2 py-1.5 text-sm text-slate-700 outline-none focus:border-[#eb0003] focus:ring-2 focus:ring-[#eb0003]/20";
+    "w-full rounded-md border border-slate-200 bg-white px-2 py-1.5 text-sm text-slate-700 outline-none focus:border-[#007AFF] focus:ring-2 focus:ring-[rgba(0,122,255,0.25)]";
   const filterSelectClass =
-    "min-w-40 rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm outline-none transition focus:border-[#eb0003] focus:ring-2 focus:ring-[#eb0003]/20";
+    "min-w-40 rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm outline-none transition focus:border-[#007AFF] focus:ring-2 focus:ring-[rgba(0,122,255,0.25)]";
 
   function renderEditableCell(contact: Contact, field: EditableField) {
     const key = getCellKey(contact.id, field);
@@ -641,7 +641,7 @@ export default function ContactsClient() {
   }
 
   return (
-    <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+    <section className="min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
       <div className="border-b border-slate-200 px-4 py-3">
         <h1 className="text-lg font-semibold">Contacts</h1>
         <p className="mt-1 text-sm text-slate-500">Search, slice, and act without leaving the sheet.</p>
@@ -649,7 +649,7 @@ export default function ContactsClient() {
 
       <div className="border-b border-slate-200 px-4 py-3">
         <input
-          className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm shadow-sm outline-none focus:border-[#eb0003] focus:ring-2 focus:ring-[#eb0003]/20"
+          className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm shadow-sm outline-none focus:border-[#007AFF] focus:ring-2 focus:ring-[rgba(0,122,255,0.25)]"
           onChange={(event) => setSearch(event.target.value)}
           placeholder="Search name, phone, or email..."
           type="search"
@@ -668,7 +668,7 @@ export default function ContactsClient() {
               All
             </button>
             <button
-              className={filter === "hot" ? activeFilterButtonClass : `${baseFilterButtonClass} border border-red-200 bg-red-50/50`}
+              className={filter === "hot" ? activeFilterButtonClass : `${baseFilterButtonClass} border border-blue-200 bg-blue-50/50`}
               onClick={() => updateFilters({ filter: "hot" })}
               type="button"
             >
@@ -749,9 +749,9 @@ export default function ContactsClient() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto">
-        <table className="w-full text-sm">
-          <thead className="sticky top-0 z-10 bg-slate-100/95 backdrop-blur-sm">
+      <div className="min-w-0 overflow-x-auto">
+        <table className="min-w-max w-full text-sm">
+          <thead className="bg-slate-100/95 backdrop-blur-sm lg:sticky lg:top-0 lg:z-10">
             <tr className="text-left">
               <th className="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Name</th>
               <th className="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Type</th>
@@ -778,7 +778,7 @@ export default function ContactsClient() {
             {sortedContacts.map((c) => {
               const overdue = isOverdue(c.nextFollowUp);
               const nextActionDays = daysUntil(c.nextFollowUp);
-              const rowBase = overdue ? "bg-red-50/60" : "bg-white";
+              const rowBase = overdue ? "bg-blue-50/60" : "bg-white";
 
               return (
                 <tr
@@ -796,7 +796,7 @@ export default function ContactsClient() {
                   {renderEditableCell(c, "tier")}
                   {renderEditableCell(c, "phone")}
                   {renderEditableCell(c, "email")}
-                  <td className={nextActionDays < 0 ? "px-3 py-2 font-semibold text-red-600" : "px-3 py-2 font-medium text-slate-700"}>
+                  <td className={nextActionDays < 0 ? "px-3 py-2 font-semibold text-[#007AFF]" : "px-3 py-2 font-medium text-slate-700"}>
                     {nextActionDays < 0 ? `${Math.abs(nextActionDays)}d overdue` : `${nextActionDays}d`}
                   </td>
                   <td className="px-3 py-2 text-slate-500">{daysSince(c.lastContacted)}d ago</td>
@@ -805,7 +805,7 @@ export default function ContactsClient() {
                       <div className="flex items-center gap-2">
                         {c.phone ? (
                           <button
-                            className={`${actionButtonClass} ${flashedAction?.contactId === c.id && flashedAction.action === "call" ? "border-[#eb0003] bg-[#eb0003] text-white" : ""}`}
+                            className={`${actionButtonClass} ${flashedAction?.contactId === c.id && flashedAction.action === "call" ? "border-[#007AFF] bg-[#007AFF] text-white" : ""}`}
                             onClick={(e) => {
                               e.stopPropagation();
                               window.open(`tel:${c.phone}`);
@@ -822,7 +822,7 @@ export default function ContactsClient() {
 
                         {c.phone ? (
                           <button
-                            className={`${actionButtonClass} ${flashedAction?.contactId === c.id && flashedAction.action === "text" ? "border-[#eb0003] bg-[#eb0003] text-white" : ""}`}
+                            className={`${actionButtonClass} ${flashedAction?.contactId === c.id && flashedAction.action === "text" ? "border-[#007AFF] bg-[#007AFF] text-white" : ""}`}
                             onClick={(e) => {
                               e.stopPropagation();
                               window.open(`sms:${c.phone}`);
@@ -896,7 +896,7 @@ export default function ContactsClient() {
                         No
                       </button>
                       <button
-                        className="rounded-lg bg-[#eb0003] px-3 py-2 text-sm text-white shadow-sm hover:bg-[#c40003]"
+                        className="rounded-lg bg-[#007AFF] px-3 py-2 text-sm text-white shadow-sm hover:bg-[#0066CC]"
                         onClick={() => setModalState({ ...modalState, step: "schedule" })}
                         type="button"
                       >
@@ -974,7 +974,7 @@ export default function ContactsClient() {
                         Cancel
                       </button>
                       <button
-                        className="rounded-lg bg-[#eb0003] px-3 py-2 text-sm text-white shadow-sm hover:bg-[#c40003]"
+                        className="rounded-lg bg-[#007AFF] px-3 py-2 text-sm text-white shadow-sm hover:bg-[#0066CC]"
                         disabled={modalState.isSaving}
                         onClick={() => void handleCustomDateSave()}
                         type="button"

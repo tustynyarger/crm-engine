@@ -73,7 +73,7 @@ export function DoneFollowUpModal({ name, onCancel, onSave }: DoneFollowUpModalP
               Next follow-up date
             </label>
             <input
-              className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#eb0003] focus:ring-2 focus:ring-[#eb0003]/20"
+            className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#007AFF] focus:ring-2 focus:ring-[rgba(0,122,255,0.25)]"
               id="custom-date"
               onChange={(event) => setCustomDate(event.target.value)}
               type="date"
@@ -87,7 +87,7 @@ export function DoneFollowUpModal({ name, onCancel, onSave }: DoneFollowUpModalP
             Quick note (optional)
           </label>
           <textarea
-            className="mt-1 min-h-20 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#eb0003] focus:ring-2 focus:ring-[#eb0003]/20"
+            className="mt-1 min-h-20 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-[#007AFF] focus:ring-2 focus:ring-[rgba(0,122,255,0.25)]"
             id="quick-note"
             onChange={(event) => setNoteText(event.target.value)}
             placeholder="Conversation summary"
@@ -104,7 +104,7 @@ export function DoneFollowUpModal({ name, onCancel, onSave }: DoneFollowUpModalP
             Cancel
           </button>
           <button
-            className="rounded-lg bg-[#eb0003] px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#c40003]"
+          className="rounded-lg bg-[#007AFF] px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#0066CC]"
             onClick={handleSave}
             type="button"
           >

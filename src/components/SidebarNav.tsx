@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { PushNotificationToggle } from "@/components/PushNotificationToggle";
 import { supabase } from "@/lib/supabase";
 
 type SidebarNavProps = {
@@ -13,7 +14,7 @@ type SidebarNavProps = {
 
 function getLinkClassName(isActive: boolean): string {
   const baseClassName = "block cursor-pointer rounded-xl px-3 py-2.5 font-medium transition";
-  const activeClassName = "bg-[#eb0003] !text-white";
+  const activeClassName = "bg-[#007AFF] !text-white";
   const inactiveClassName = "text-slate-900 hover:bg-white";
 
   return `${baseClassName} ${isActive ? activeClassName : inactiveClassName}`;
@@ -55,8 +56,17 @@ export function SidebarNav({ className = "", onNavigate }: SidebarNavProps) {
       </div>
 
       <div className="mt-auto pt-4">
+        <PushNotificationToggle />
+
+        <div className="mt-4 text-xs leading-5 text-slate-500">
+          Help or feedback? Text/call{" "}
+          <a className="font-medium text-slate-600 hover:text-slate-900 hover:underline" href="tel:9895881238">
+            Tustyn at 989-588-1238
+          </a>
+        </div>
+
         <button
-          className="block w-full cursor-pointer rounded-xl px-3 py-2.5 text-left text-sm font-medium text-slate-700 transition hover:bg-white"
+          className="mt-4 block w-full cursor-pointer rounded-xl px-3 py-2.5 text-left text-sm font-medium text-slate-700 transition hover:bg-white"
           disabled={isLoggingOut}
           onClick={() => setIsLogoutModalOpen(true)}
           type="button"
@@ -80,7 +90,7 @@ export function SidebarNav({ className = "", onNavigate }: SidebarNavProps) {
                 Cancel
               </button>
               <button
-                className="rounded-lg bg-[#eb0003] px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#c40003] disabled:cursor-not-allowed disabled:opacity-70"
+                className="rounded-lg bg-[#007AFF] px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#0066CC] disabled:cursor-not-allowed disabled:opacity-70"
                 disabled={isLoggingOut}
                 onClick={() => void handleLogout()}
                 type="button"

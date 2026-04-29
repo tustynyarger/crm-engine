@@ -3,6 +3,7 @@ import type { Contact, ContactNote, NewContactInput, TierKind } from "@/lib/type
 
 type ContactRow = {
   id: string;
+  user_id: string;
   name: string;
   type: string;
   location: string;
@@ -20,6 +21,7 @@ type ContactRow = {
 };
 
 type ContactInsert = {
+  user_id: string;
   name: string;
   type: string;
   location: string;
@@ -51,6 +53,19 @@ type ContactUpdate = Partial<{
   notes: Array<{ text: string; date: string }>;
 }>;
 
+async function getCurrentUserId(): Promise<string | null> {
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error) {
+    throw new Error(`Failed to load current user: ${error.message}`);
+  }
+
+  return user?.id ?? null;
+}
+
 function dispatchContactsUpdated(): void {
   if (typeof window !== "undefined") {
     window.dispatchEvent(new Event("crm-engine:contacts-updated"));
@@ -64,8 +79,9 @@ function toSerializedNotes(notes: ContactNote[]): Array<{ text: string; date: st
   }));
 }
 
-function toContactInsert(contact: Omit<Contact, "id">): ContactInsert {
+function toContactInsert(contact: Omit<Contact, "id">, userId: string): ContactInsert {
   return {
+    user_id: userId,
     name: contact.name,
     type: contact.type,
     location: contact.location,
@@ -158,9 +174,15 @@ function fromRow(row: ContactRow): Contact {
 }
 
 export async function getContacts(): Promise<Contact[]> {
+  const userId = await getCurrentUserId();
+  if (!userId) {
+    return [];
+  }
+
   const { data, error } = await supabase
     .from("contacts")
     .select("*")
+    .eq("user_id", userId)
     .order("next_follow_up", { ascending: true });
 
   if (error) {
@@ -171,9 +193,14 @@ export async function getContacts(): Promise<Contact[]> {
 }
 
 export async function saveContacts(contacts: Contact[]): Promise<void> {
+  const userId = await getCurrentUserId();
+  if (!userId) {
+    throw new Error("Cannot save contacts without a logged-in user.");
+  }
+
   const payload = contacts.map((contact) => ({
     id: contact.id,
-    ...toContactInsert(contact),
+    ...toContactInsert(contact, userId),
   }));
 
   const { error } = await supabase.from("contacts").upsert(payload, { onConflict: "id" });
@@ -186,7 +213,12 @@ export async function saveContacts(contacts: Contact[]): Promise<void> {
 }
 
 export async function addContact(contact: NewContactInput): Promise<Contact> {
-  const payload = toContactInsert(contact);
+  const userId = await getCurrentUserId();
+  if (!userId) {
+    throw new Error("Cannot add a contact without a logged-in user.");
+  }
+
+  const payload = toContactInsert(contact, userId);
 
   const { data, error } = await supabase.from("contacts").insert(payload).select("*").single();
 
@@ -199,12 +231,18 @@ export async function addContact(contact: NewContactInput): Promise<Contact> {
 }
 
 export async function updateContact(id: string, updates: Partial<Contact>): Promise<Contact> {
+  const userId = await getCurrentUserId();
+  if (!userId) {
+    throw new Error("Cannot update a contact without a logged-in user.");
+  }
+
   const payload = toContactUpdate(updates);
 
   const { data, error } = await supabase
     .from("contacts")
     .update(payload)
     .eq("id", id)
+    .eq("user_id", userId)
     .select("*")
     .single();
 
@@ -217,7 +255,12 @@ export async function updateContact(id: string, updates: Partial<Contact>): Prom
 }
 
 export async function deleteContact(id: string): Promise<void> {
-  const { error } = await supabase.from("contacts").delete().eq("id", id);
+  const userId = await getCurrentUserId();
+  if (!userId) {
+    throw new Error("Cannot delete a contact without a logged-in user.");
+  }
+
+  const { error } = await supabase.from("contacts").delete().eq("id", id).eq("user_id", userId);
 
   if (error) {
     throw new Error(`Failed to delete contact: ${error.message}`);
